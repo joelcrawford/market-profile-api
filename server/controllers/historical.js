@@ -3,9 +3,8 @@ const router = express.Router()
 const { getHistoricalData } = require('../models/getHistoricalData')
 
 router.get(['/'], async (request, response) => {
-    console.log('hi!')
-    const h = await getHistoricalData('ES')
-    console.log(h)
+    const data = await getHistoricalData(request.query)
+    console.log(data)
 })
 
 module.exports = router
