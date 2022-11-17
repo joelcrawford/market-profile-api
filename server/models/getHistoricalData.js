@@ -1,7 +1,7 @@
 require('dotenv').config() // load .env into process environment
 require('isomorphic-fetch')
 const { baseUrl } = require('../statics').tda
-const apikey = process.env.API_SECRET_KEY
+const apikey = process.env.TDA_API_KEY
 // API docs:
 // https://developer.tdameritrade.com/price-history/apis/get/marketdata/%7Bsymbol%7D/pricehistory#
 // /v1/marketdata/QQQ/pricehistory?apikey=OSJBFRIASHXURBZJS4T2MUMQSK0XSN1N&periodType=day&period=2&frequencyType=minute&frequency=1
