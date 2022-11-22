@@ -11,8 +11,9 @@ server.use(
 )
 
 const historical = require('./controllers/historical')
+const binance = require('./controllers/binance_kline_stream')
 
 // Historical Price Data
 server.use('/historical', historical)
-
+server.use('/binance', binance)
 module.exports = server
