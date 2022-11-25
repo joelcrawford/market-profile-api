@@ -1,44 +1,51 @@
 require('dotenv').config()
 const WebSocket = require('ws')
-const server = require('./server')
-const port = process.env.PORT || 6000
-const db = require('./server/clients/postgres')
+//const db = require('./server/clients/postgres')
+const Database = require('./server/clients/postgres')
 const { binance, coins } = require('./server/statics')
+let debug = {
+    count: 0,
+    on: true
+}
+console.log(Database.setup())
+// PostGreSQL, authenticate and connect -----------------------------
 
-// PostGreSQL
-db.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.')
-    })
-    .catch((err) => {
-        console.error('Unable to connect to the database:', err)
-    })
+// await db
+//     .authenticate()
+//     .then(() => {
+//         console.log('Connection to POSTGRES has been established successfully.')
+//     })
+//     .catch((err) => {
+//         console.error('Unable to connect to the POSTGRES database:', err)
+//     })
 
-// Express API endpoints
-server
-    .listen(port, () => {
-        console.log(
-            `Listening on port ${port} in ${process.env.NODE_ENV} environment...`
-        )
-    })
-    .on('error', (error) => {
-        console.log(
-            error,
-            'Logging error to console. This is a nodemon error that recently started when I accidentally used yarn'
-        )
-    })
+// Websocket, set up connection for bianance stream -----------------
+const ws = new WebSocket(
+    `${binance.futures}${coins}@${binance.streamTypes.klines.oneMinute}`
+)
 
-// // Websocket connection for streaming data
-// const ws = new WebSocket(
-//     `${binance.futures}${coins}@${binance.streamTypes.klines.oneMinute}`
-// )
+ws.on('open', () => {
+    console.log('Connection to websocket open')
+})
+ws.on('close', (code, reason) => {
+    console.log('closed', code, reason.toString())
+})
 
-// let count = 0
-// ws.on('message', (msg) => {
-//     if (msg && count < 2) {
-//         const data = JSON.parse(msg) // parsing a single-trade record
-//         console.log(data)
-//         ++count
-//     }
-//     // now how do i send this stream to the database?
-// })
+ws.on('error', (e) => {
+    console.log('error', e)
+})
+
+ws.on('message', (msg) => {
+    if (msg) {
+        const data = JSON.parse(msg) // parsing a single-trade record
+        console.log(data)
+        if (debug.on) {
+            ++debug.count
+            if (debug.count == 2) {
+                ws.close()
+            }
+        }
+    }
+
+    // now how do i send this stream to the database?
+})
