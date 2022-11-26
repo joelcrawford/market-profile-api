@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const { Sequelize } = require('sequelize')
 const BinanceKlines = require('./models/binance_klines')
-//const SecondModel = require('./second-model')
+//const iqFeedHistorical = require('./iq_feed_historical')
 
 const dbOptions = {
     port: process.env.POSTGRES_PORT || 5432,
@@ -28,14 +28,14 @@ const sequelize = new Sequelize(
 
 const models = {
     binance_klines: BinanceKlines.init(sequelize)
-    //Second: SecondModel.init(sequelize, Sequelize)
+    //iq_feed_historical: iqFeedHistorical.init(sequelize)
 }
 
 // Run `.associate` if it exists,
 // ie create relationships in the ORM
-Object.values(models)
-    .filter((model) => typeof model.associate === 'function')
-    .forEach((model) => model.associate(models))
+// Object.values(models)
+//     .filter((model) => typeof model.associate === 'function')
+//     .forEach((model) => model.associate(models))
 
 const db = {
     ...models,
