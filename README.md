@@ -13,3 +13,8 @@ Simple ETL application, sends stream to postgres db for aggregation
 ### Extras
 
 -   [] Backfill function for missing data
+
+### Next up (separate apps)
+
+-   [] Express API for time based queries (timescaleDb)
+-   [] Analysis, possibly python app to run calcs daily
