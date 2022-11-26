@@ -1,4 +1,4 @@
-# MARKET DATA FIREHOSE STREAM FOR UR MARKET PROFILE SORCERY
+## MARKET DATA FIREHOSE STREAM FOR UR MARKET PROFILE SORCERY
 
 Simple ETL application, sends stream to postgres db for aggregation
 
