@@ -1,4 +1,6 @@
-require('dotenv').config() // this is important!
+require('dotenv').config()
+
+// this is used for command line stuff, like npx sequelize (migrations, etc)
 module.exports = {
     development: {
         username: process.env.POSTGRES_USER,
