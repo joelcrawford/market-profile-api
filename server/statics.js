@@ -6,6 +6,7 @@ module.exports = {
     binance: {
         futures: 'wss://fstream.binance.com/ws/',
         klines: 'https://dapi.binance.com/dapi/v1/klines',
+        spot: 'https://api3.binance.com/api/v3/klines',
         streamTypes: {
             book: 'bookTicker',
             trade: 'trade',
