@@ -53,40 +53,26 @@ RESPONSE --------
 
 
 */
-
-//const url = 'https://example.com'
-
-// const data = {
-//     name: 'Wade Wilson',
-//     occupation: 'Murderer',
-//     age: '30 (forever)'
-// }
-
 const getsomedata = async () => {
-    const spotUrl = `${binance.spot}`
-    console.log(spotUrl)
-
     const headers = {
         'Content-Type': 'application/json'
     }
 
-    const params = {
-        symbol: 'BNBBTC',
-        interval: '1m'
-    }
-
     try {
-        let res = await axios(binance.spot, { method: 'GET', headers, params })
+        let res = await axios(binance.spot.endpoint, {
+            method: 'GET',
+            headers,
+            params: binance.spot.params
+        })
         console.log(res.data)
-        // Work with the response...
+        // send this to postgres
     } catch (err) {
         if (err.response) {
-            // The client was given an error response (5xx, 4xx)
+            console.log('error response', err.response)
         } else if (err.request) {
-            // The client never received a response, and the request was never left
-            console.log(err.request)
+            console.log('no response', err.request)
         } else {
-            // Anything else
+            console.log('some other error...', err)
         }
     }
 }
