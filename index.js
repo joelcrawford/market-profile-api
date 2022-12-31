@@ -1,26 +1,9 @@
 require('dotenv').config()
-const WebSocket = require('ws')
-const axios = require('axios')
 
-const {
-    handleError,
-    handleOpen,
-    handleClose,
-    handleMessage
-} = require('./server/events')
-const { binance, coins } = require('./server/statics')
-
-// Websocket, set up connection for binance stream -----------------
-const ws = new WebSocket(
-    `${binance.futures}${coins}@${binance.streamTypes.klines.oneMinute}`
-)
-
-handleOpen(ws)
-handleClose(ws)
-handleError(ws)
-
-// main function ----------
-handleMessage(ws)
+const { binance } = require('./server/statics')
+const { fetchData, insertData } = require('./server/controllers/fetchData')
+const { getTimes } = require('./server/queries/selectWhere')
+const { getTimes2 } = require('./server/queries/selectTest')
 
 // TESTING HTTPS GET on Spot ------------------------
 
@@ -53,28 +36,59 @@ RESPONSE --------
 
 
 */
-const getsomedata = async () => {
-    const headers = {
-        'Content-Type': 'application/json'
-    }
 
-    try {
-        let res = await axios(binance.spot.endpoint, {
-            method: 'GET',
-            headers,
-            params: binance.spot.params
-        })
-        console.log(res.data)
-        // send this to postgres
-    } catch (err) {
-        if (err.response) {
-            console.log('error response', err.response)
-        } else if (err.request) {
-            console.log('no response', err.request)
-        } else {
-            console.log('some other error...', err)
-        }
-    }
+/*
+get 500 1m klines at a time
+starting from latest point in data (query db)
+milliseconds looks like this 1669282740000
+1 minute = 60000 msecs
+500 1m klines = 500 * 60000 = 30,000,000
+
+[
+    1669282740000,      // open time
+    '296.80000000',     // O
+    '297.00000000',     // H
+    '296.80000000',     // L
+    '296.90000000',     // C
+    '60.06200000',      // V
+    1669282799999,      // close time
+    '17830.88470000', 
+    44,              
+    '32.67600000',
+    '9701.70850000', 
+    '0'
+  ]
+
+*/
+
+let startTime = new Date('12/01/2022 00:00:00').getTime()
+let x = 0
+const recordLimit = 500
+const timeMap = {
+    one_minute: 60000
 }
+let timeMultiplier = recordLimit * timeMap.one_minute
+// while (startTime <= Date.now()) {
+//     let p = {
+//         symbol: 'BNBBUSD',
+//         interval: '1m',
+//         startTime: startTime,
+//         endTime: Date.now()
+//     }
+//     fetchData(binance.spot.endpoint, p).then((res) => {
+//         insertData(res, 'BNBBUSD')
+//     })
+//     startTime += timeMultiplier
+//     x++
+//     //console.log(x, startTime)
+// }
 
-getsomedata()
+fetchData(`${binance.baseUrl}${binance.infoUrl}`).then((res) => {
+    console.log(res.rateLimits)
+})
+// let res = null
+
+//console.log(res.length)
+//getTimes('Binance', 'BTCUSDT').then((res) => console.log(res))
+//const tt = getTimes2()
+//console.log(t)

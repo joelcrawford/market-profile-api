@@ -7,6 +7,7 @@ Simple ETL application, sends stream to postgres db for aggregation
 -   [x] Websocket connection to market data
 -   [x] Connect to database
 -   [x] Create candlestick model for 1m klines
+-   [] Node-cron scheduled download and insert
 -   [] Continuous Aggregation with TimescaleDb
 -   [] Deploy
 
@@ -18,3 +19,8 @@ Simple ETL application, sends stream to postgres db for aggregation
 
 -   [] Express API for time based queries (timescaleDb)
 -   [] Analysis, possibly python app to run calcs daily
+
+### Handy functions
+
+POSTGRES
+sudo -u postgres psql ()

@@ -4,6 +4,7 @@ module.exports = {
         baseUrl: 'https://api.tdameritrade.com/v1'
     },
     binance: {
+        baseUrl: 'https://api3.binance.com',
         futures: 'wss://fstream.binance.com/ws/',
         klines: 'https://dapi.binance.com/dapi/v1/klines',
         spot: {
@@ -13,6 +14,7 @@ module.exports = {
                 interval: '1m'
             }
         },
+        infoUrl: '/api/v3/exchangeInfo',
         streamTypes: {
             book: 'bookTicker',
             trade: 'trade',
