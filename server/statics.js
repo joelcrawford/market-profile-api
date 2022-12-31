@@ -5,7 +5,9 @@ module.exports = {
     },
     binance: {
         baseUrl: 'https://api3.binance.com',
-        futures: 'wss://fstream.binance.com/ws/',
+        futures: {
+            endpoint: 'wss://fstream.binance.com/ws/'
+        },
         klines: 'https://dapi.binance.com/dapi/v1/klines',
         spot: {
             endpoint: 'https://api3.binance.com/api/v3/klines',

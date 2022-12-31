@@ -3,14 +3,11 @@ const { handleError } = require('./handleError')
 const { handleOpen } = require('./handleOpen')
 const { handleClose } = require('./handleClose')
 const { handleMessage } = require('./handleMessage')
-const { binance, coins } = require('../statics')
 
 module.exports = {
-    startWebsocket() {
+    startWebsocket(endpoint, coinPair, streamType) {
         // Websocket, set up connection for binance stream -----------------
-        const ws = new WebSocket(
-            `${binance.futures}${coins}@${binance.streamTypes.klines.oneMinute}`
-        )
+        const ws = new WebSocket(`${endpoint}${coinPair}@${streamType}`)
         handleOpen(ws)
         handleClose(ws)
         handleError(ws)

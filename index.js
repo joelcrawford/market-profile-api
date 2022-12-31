@@ -1,10 +1,18 @@
 require('dotenv').config()
-
-const { binance } = require('./server/statics')
-const { fetchData, insertData } = require('./server/controllers/fetchData')
+const moment = require('moment')
+const {
+    fetchData,
+    backfill,
+    insertData,
+    fetchDataPromise
+} = require('./server/controllers/fetchData')
 const { getTimes } = require('./server/queries/selectWhere')
 const { getTimes2 } = require('./server/queries/selectTest')
+const { startWebsocket } = require('./server/websocket')
 
+const { binance, coins } = require('./server/statics')
+
+const { futures, streamTypes } = binance
 // TESTING HTTPS GET on Spot ------------------------
 
 /*
@@ -68,6 +76,12 @@ const timeMap = {
     one_minute: 60000
 }
 let timeMultiplier = recordLimit * timeMap.one_minute
+
+// fetchDataPromise(binance.spot.endpoint, 'BNBBUSD', '1m', startTime).then(
+//     (res) => console.log(res)
+// )
+let startDate = moment().subtract(7, 'days')
+backfill('Binance', binance.spot.endpoint, 'BNBBUSD', '1m')
 // while (startTime <= Date.now()) {
 //     let p = {
 //         symbol: 'BNBBUSD',
@@ -83,12 +97,18 @@ let timeMultiplier = recordLimit * timeMap.one_minute
 //     //console.log(x, startTime)
 // }
 
-fetchData(`${binance.baseUrl}${binance.infoUrl}`).then((res) => {
-    console.log(res.rateLimits)
-})
+// you might be able to query using sequelize like this:
+// sequelize.query(`SELECT answer FROM questionbanks WHERE id = ${questionId} ).then(records => console.log(records));
+
+// fetchData(`${binance.baseUrl}${binance.infoUrl}`).then((res) => {
+//     console.log(res.rateLimits)
+// })
 // let res = null
 
 //console.log(res.length)
 //getTimes('Binance', 'BTCUSDT').then((res) => console.log(res))
 //const tt = getTimes2()
 //console.log(t)
+
+// WEBSOCKET DATA ---------------------------
+// startWebsocket(futures.endpoint, coins, streamTypes.klines.oneMinute)
