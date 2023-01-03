@@ -1,18 +1,13 @@
 require('dotenv').config()
 const moment = require('moment')
-const {
-    fetchData,
-    backfill,
-    insertData,
-    fetchDataPromise
-} = require('./server/controllers/fetchData')
+const { backfill } = require('./server/tools/backfill')
 const { getTimes } = require('./server/queries/selectWhere')
 const { getTimes2 } = require('./server/queries/selectTest')
 const { startWebsocket } = require('./server/websocket')
 
 const { binance, coins } = require('./server/statics')
 
-const { futures, streamTypes } = binance
+const { futures, streamTypes, rateLimits } = binance
 // TESTING HTTPS GET on Spot ------------------------
 
 /*
@@ -69,19 +64,22 @@ milliseconds looks like this 1669282740000
 
 */
 
-let startTime = new Date('12/01/2022 00:00:00').getTime()
-let x = 0
-const recordLimit = 500
-const timeMap = {
-    one_minute: 60000
-}
-let timeMultiplier = recordLimit * timeMap.one_minute
+let startDate = moment().subtract(1, 'days').valueOf()
+console.log(
+    `Since: ${new Date(startDate).toString(
+        'YYYY-MM-DD'
+    )}, ${startDate}, ${typeof startDate}`
+)
 
-// fetchDataPromise(binance.spot.endpoint, 'BNBBUSD', '1m', startTime).then(
-//     (res) => console.log(res)
-// )
-let startDate = moment().subtract(7, 'days')
-backfill('Binance', binance.spot.endpoint, 'BNBBUSD', '1m')
+//process.exit()
+backfill(
+    'Binance',
+    binance.spot.endpoint,
+    'BNBBUSD',
+    '1m',
+    startDate,
+    rateLimits.max
+)
 // while (startTime <= Date.now()) {
 //     let p = {
 //         symbol: 'BNBBUSD',
