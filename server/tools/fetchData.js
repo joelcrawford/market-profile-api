@@ -5,7 +5,7 @@ const https = require('https')
 const Candlestick = require('../dict/candlestick')
 
 module.exports = {
-    fetchDataPromise(endpoint, symbol, period, start, limit) {
+    fetchData(endpoint, symbol, period, start, limit) {
         return new Promise((resolve, reject) => {
             const query = querystring.stringify({
                 interval: period,
@@ -30,7 +30,7 @@ module.exports = {
                         resolve(
                             JSON.parse(body).map((candle) => {
                                 return new Candlestick(
-                                    moment(candle[0]).format('X'),
+                                    moment(candle[0]).format('x'),
                                     candle[1],
                                     candle[2],
                                     candle[3],

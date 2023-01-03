@@ -17,6 +17,10 @@ module.exports = {
             }
         },
         infoUrl: '/api/v3/exchangeInfo',
+        rateLimits: {
+            debug: 12,
+            max: 500
+        },
         streamTypes: {
             book: 'bookTicker',
             trade: 'trade',

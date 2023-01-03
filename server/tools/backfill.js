@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const db = require('../db/db')
 const BinanceCandlestick = require('../dict/BinanceCandlestick')
+const { fetchData } = require('./fetchData')
 
 module.exports = {
     async backfill(exchangeName, endpoint, symbol, period, start, limit) {
@@ -17,13 +18,7 @@ module.exports = {
                     'YYYY-MM-DD'
                 )}, ${start}, ${typeof start}`
             )
-            candles = await module.exports.fetchDataPromise(
-                endpoint,
-                symbol,
-                period,
-                start,
-                limit
-            )
+            candles = await fetchData(endpoint, symbol, period, start, limit)
 
             let dataArray = []
             candles.forEach((e) => {

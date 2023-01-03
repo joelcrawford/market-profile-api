@@ -7,7 +7,7 @@ const { startWebsocket } = require('./server/websocket')
 
 const { binance, coins } = require('./server/statics')
 
-const { futures, streamTypes, dataLimit } = binance
+const { futures, streamTypes, rateLimits } = binance
 // TESTING HTTPS GET on Spot ------------------------
 
 /*
@@ -64,7 +64,7 @@ milliseconds looks like this 1669282740000
 
 */
 
-let startDate = moment().subtract(1, 'days')
+let startDate = moment().subtract(1, 'days').valueOf()
 console.log(
     `Since: ${new Date(startDate).toString(
         'YYYY-MM-DD'
@@ -77,8 +77,8 @@ backfill(
     binance.spot.endpoint,
     'BNBBUSD',
     '1m',
-    +startDate,
-    dataLimit.max
+    startDate,
+    rateLimits.max
 )
 // while (startTime <= Date.now()) {
 //     let p = {
