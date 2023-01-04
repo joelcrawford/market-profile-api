@@ -5,6 +5,7 @@ module.exports = {
     },
     binance: {
         baseUrl: 'https://api3.binance.com',
+        coinPairs: ['BNBBUSD', 'BTCBUSD', 'ETHBUSD', 'SOLBUSD'],
         futures: {
             endpoint: 'wss://fstream.binance.com/ws/'
         },
