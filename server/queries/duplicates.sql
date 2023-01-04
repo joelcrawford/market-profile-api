@@ -5,3 +5,11 @@ DELETE FROM dups a USING (
     ) b
     WHERE a.key = b.key 
     AND a.ctid <> b.ctid
+
+
+select * from (
+  SELECT id,
+  ROW_NUMBER() OVER(PARTITION BY time ORDER BY id asc) AS Row
+  FROM tbl
+) dups
+where dups.Row > 1

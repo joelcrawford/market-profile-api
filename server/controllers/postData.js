@@ -17,20 +17,31 @@ router.get(['/'], async (request, response) => {
     try {
         console.log(request.query, request.params)
 
-        // we need COINPAIR, for each coinpair
-        // get latest, if nothing go back 7 days
-        // binance.coinPairs.forEach((c) => {
-        //     let startDate = moment().subtract(1, 'days').valueOf()
-        //     console.log(`${c}: ${new Date(startDate).toString('YYYY-MM-DD')}`)
-        //     backfill(
-        //         'Binance',
-        //         binance.spot.endpoint,
-        //         c,
-        //         '1m',
-        //         startDate,
-        //         rateLimits.max
-        //     )
-        // })
+        // check the params and query -----------
+
+        // go get the stats ------------------
+        const stats = await selectStats(request.params, request.query)
+        // backfill each instrument --------------------------
+        if (stats) {
+            data.forEach((i) => {
+                let startDate = i.dataValues.latest.valueOf()
+                console.log(
+                    `${i.dataValues.symbol}: ${new Date(startDate).toString(
+                        'YYYY-MM-DD'
+                    )}`
+                )
+                backfill(
+                    'binance',
+                    binance.spot.endpoint,
+                    i.dataValues.symbol,
+                    '1m',
+                    startDate,
+                    binance.rateLimits.max
+                )
+            })
+        }
+        // check to see if there is a result sent back from insert in postgres
+        return response.send('Done')
     } catch (error) {
         return response.send(error)
     }

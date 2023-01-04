@@ -30,7 +30,9 @@ server.use(
 )
 
 const getStats = require('./controllers/getStats') // SUMMARIZE
+const getDupes = require('./controllers/getDupes')
 
 server.use('/stats', getStats)
+server.use('/dupes', getDupes)
 
 module.exports = server

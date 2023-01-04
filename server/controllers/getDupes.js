@@ -8,15 +8,15 @@
  */
 
 const express = require('express')
-const { selectStats } = require('../queries/selectStats')
+const { selectDupes } = require('../queries/selectDupes')
 
 const router = express.Router()
 
-router.get(['/:x'], async (request, response) => {
+router.get(['/'], async (request, response) => {
     try {
         //
         console.log(request.query, request.params)
-        const body = await selectStats(request.params, request.query)
+        const body = await selectDupes(request.params, request.query)
 
         if (!body) {
             return response.status(422).json({
