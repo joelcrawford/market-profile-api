@@ -1,3 +1,4 @@
+const { binance } = require('../statics')
 module.exports = class BinanceCandlestick {
     constructor(symbol, period, time, open, high, low, close, volume) {
         if (!['m', 'h', 'd', 'y'].includes(period.slice(-1))) {
@@ -23,7 +24,7 @@ module.exports = class BinanceCandlestick {
         // this.low = parseFloat(low)
         // this.close = parseFloat(close)
         // this.volume = parseFloat(volume)
-        this.exchange = 'Binance'
+        this.exchange = binance.exchangeName
         this.symbol = symbol
         this.period = period
         this.time = time

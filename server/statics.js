@@ -4,6 +4,7 @@ module.exports = {
         baseUrl: 'https://api.tdameritrade.com/v1'
     },
     binance: {
+        exchangeName: 'binance',
         baseUrl: 'https://api3.binance.com',
         coinPairs: ['BNBBUSD', 'BTCBUSD', 'ETHBUSD', 'SOLBUSD'],
         futures: {

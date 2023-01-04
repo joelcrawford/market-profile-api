@@ -73,27 +73,27 @@ milliseconds looks like this 1669282740000
 //console.log(t)
 
 // determine start time for backfill (from latest candle)
-let startDate = moment().subtract(1, 'days').valueOf()
-console.log(
-    `Since: ${new Date(startDate).toString(
-        'YYYY-MM-DD'
-    )}, ${startDate}, ${typeof startDate}`
-)
+// let startDate = moment().subtract(1, 'days').valueOf()
+// console.log(
+//     `Since: ${new Date(startDate).toString(
+//         'YYYY-MM-DD'
+//     )}, ${startDate}, ${typeof startDate}`
+// )
 
 //selectStats().then((res) => console.log(res))
 
-// binance.coinPairs.forEach((c) => {
-//     let startDate = moment().subtract(1, 'days').valueOf()
-//     console.log(`${c}: ${new Date(startDate).toString('YYYY-MM-DD')}`)
-//     backfill(
-//         'Binance',
-//         binance.spot.endpoint,
-//         c,
-//         '1m',
-//         startDate,
-//         rateLimits.max
-//     )
-// })
+binance.coinPairs.forEach((c) => {
+    let startDate = moment().subtract(3, 'days').valueOf()
+    console.log(`${c}: ${new Date(startDate).toString('YYYY-MM-DD')}`)
+    backfill(
+        'binance',
+        binance.spot.endpoint,
+        c,
+        '1m',
+        startDate,
+        rateLimits.max
+    )
+})
 //process.exit()
 
 // you might be able to query using sequelize like this:

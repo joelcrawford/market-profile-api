@@ -12,10 +12,11 @@ const { selectStats } = require('../queries/selectStats')
 
 const router = express.Router()
 
-router.get(['/'], async (request, response) => {
+router.get(['/:x'], async (request, response) => {
     try {
-        // send params to elasticsearch DSL
-        const body = await selectStats()
+        //
+        console.log(request.query, request.params)
+        const body = await selectStats(request.params, request.query)
         if (!body) {
             return response.status(422).json({
                 errors: [
