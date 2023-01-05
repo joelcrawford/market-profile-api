@@ -18,5 +18,20 @@ module.exports = {
         // })
 
         return dupes[0]
+    },
+    async deleteDupes() {
+        const deletedDupes = await db.sequelize.query(
+            `DELETE FROM binance_klines
+            WHERE id IN (
+            select id from (
+                SELECT id,
+                exchange, symbol, time,
+                ROW_NUMBER() OVER(PARTITION BY exchange, symbol, time ORDER BY exchange, symbol, time asc) AS Row
+                FROM binance_klines
+            ) dups
+            where dups.Row > 1);`
+        )
+        //console.log(deletedDupes)
+        return deletedDupes
     }
 }

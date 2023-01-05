@@ -3,6 +3,12 @@ module.exports = {
     tda: {
         baseUrl: 'https://api.tdameritrade.com/v1'
     },
+    functions: {
+        backfill: {
+            mostDays: 30,
+            debug: 1
+        }
+    },
     binance: {
         exchangeName: 'binance',
         baseUrl: 'https://api3.binance.com',

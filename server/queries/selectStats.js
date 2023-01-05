@@ -13,14 +13,14 @@ module.exports = {
         }
 
         let instruments = []
-        if (query.instrument) {
+        if (query.instruments) {
             // split at comma
-            instruments = query.instrument.split(',')
+            instruments = query.instruments.split(',')
             whereClause['symbol'] = {
                 [Op.in]: instruments
             }
         }
-
+        console.log('where', whereClause)
         const data = await binance_klines.findAll({
             attributes: [
                 'exchange',

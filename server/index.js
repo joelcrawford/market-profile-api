@@ -29,10 +29,15 @@ server.use(
     })
 )
 
-const getStats = require('./controllers/getStats') // SUMMARIZE
-const getDupes = require('./controllers/getDupes')
+// Stats - earliest, latest dates with record count
+const getStats = require('./controllers/getStats')
+// Duplicates - you can view count or just delete them all ?action=view,delete
+const getDupes = require('./controllers/getDupes') // Duplicates
+// Backfill - backfill data from latest date
+const postData = require('./controllers/postData')
 
 server.use('/stats', getStats)
 server.use('/dupes', getDupes)
+server.use('/backfill', postData)
 
 module.exports = server

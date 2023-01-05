@@ -13,3 +13,14 @@ select * from (
   FROM tbl
 ) dups
 where dups.Row > 1
+
+
+DELETE FROM Photos
+WHERE id IN (
+select id from (
+  SELECT id,
+  ROW_NUMBER() OVER(PARTITION BY merchant_Id, url ORDER BY id asc) AS Row
+  FROM Photos
+) dups
+where 
+dups.Row > 1);

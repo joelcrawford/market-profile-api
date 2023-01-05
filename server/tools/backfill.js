@@ -47,7 +47,7 @@ module.exports = {
 
             //start = new Date(_.max(candles.map((r) => r.time))*1000)
             // get the last candle and add a minute (update to be 1 time period)
-            start = +_.max(candles.map((r) => r.time)) + 60000
+            start = +_.max(candles.map((r) => r.time)) //+ 60000
             console.log('the next start', start)
         } while (candles.length > 10)
 

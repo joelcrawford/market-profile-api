@@ -1,6 +1,8 @@
 require('dotenv').config()
+const cron = require('node-cron')
 const server = require('./server')
 const port = process.env.PORT || 5000
+const { tempCronBackfill } = require('./server/tools/tempCronBackfill')
 
 server
     .listen(port, () => {
@@ -15,18 +17,9 @@ server
         )
     })
 
-// const moment = require('moment')
-// const { backfill } = require('./server/tools/backfill')
-// const { binance } = require('./server/statics')
-// binance.coinPairs.forEach((c) => {
-//     let startDate = moment().subtract(3, 'days').valueOf()
-//     console.log(`${c}: ${new Date(startDate).toString('YYYY-MM-DD')}`)
-//     backfill(
-//         'binance',
-//         binance.spot.endpoint,
-//         c,
-//         '1m',
-//         startDate,
-//         binance.rateLimits.max
-//     )
-// })
+cron.schedule('*/30 * * * *', () => {
+    console.log('running every 2nd minute')
+    tempCronBackfill('binance')
+})
+
+//tempCronBackfill('binance')

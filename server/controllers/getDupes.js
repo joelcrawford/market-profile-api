@@ -8,7 +8,7 @@
  */
 
 const express = require('express')
-const { selectDupes } = require('../queries/selectDupes')
+const { selectDupes, deleteDupes } = require('../queries/selectDupes')
 
 const router = express.Router()
 
@@ -16,7 +16,15 @@ router.get(['/'], async (request, response) => {
     try {
         //
         console.log(request.query, request.params)
-        const body = await selectDupes(request.params, request.query)
+        if (!request.query.action) {
+            response.send('action param required')
+        }
+        let body
+        if (request.query.action == 'view') {
+            body = await selectDupes(request.params, request.query)
+        } else if (request.query.action == 'delete') {
+            body = await deleteDupes()
+        }
 
         if (!body) {
             return response.status(422).json({
