@@ -58,12 +58,12 @@ jobs:
                   ls -lah
             - name: Deploy DIST with rsync
               run: rsync -azvr --inplace --delete --exclude=".*" dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/${{ env.DOMAIN_NAME }}/dist/
-            # - name: Restart PM2 app
-            #   uses: appleboy/ssh-action@master
-            #   with:
-            #       host: ${{ secrets.SSH_HOST }}
-            #       username: ${{ secrets.SSH_USER }}
-            #       key: ${{ secrets.SSH_PRIVATE_KEY }}
-            # port: ${{ secrets.SSH_PORT }}
-            # script: echo ${{ secrets.DEV_USER_PASSWORD }} | sudo -S pm2 restart ${{ env.PM2_APP_NAME }}
-            # script: pm2 restart all
+            - name: Restart PM2 app
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  script: pm2 restart all
+                  # port: ${{ secrets.SSH_PORT }}
+                  # script: echo ${{ secrets.DEV_USER_PASSWORD }} | sudo -S pm2 restart ${{ env.PM2_APP_NAME }}
