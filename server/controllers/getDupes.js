@@ -12,7 +12,7 @@ const { selectDupes, deleteDupes } = require('../queries/selectDupes')
 
 const router = express.Router()
 
-router.get(['/'], async (request, response) => {
+router.get(['/:x'], async (request, response) => {
     try {
         //
         console.log(request.query, request.params)
@@ -23,7 +23,7 @@ router.get(['/'], async (request, response) => {
         if (request.query.action == 'view') {
             body = await selectDupes(request.params, request.query)
         } else if (request.query.action == 'delete') {
-            body = await deleteDupes()
+            body = await deleteDupes(request.params, request.query)
         }
 
         if (!body) {
