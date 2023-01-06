@@ -19,7 +19,7 @@ server
     })
 
 if (process.env.NODE_ENV === 'production') {
-    cron.schedule(options.cron.every_hour_at_30_mins, () => {
+    cron.schedule(options.cron.every_hour_at_45_mins, () => {
         tempCronBackfill('binance').then(
             console.log(
                 `CRON 30th minute past every hour: ${new Date().toLocaleString(

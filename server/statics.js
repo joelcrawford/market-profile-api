@@ -10,6 +10,7 @@ module.exports = {
         },
         cron: {
             every_hour_at_30_mins: '30 */1 * * *',
+            every_hour_at_45_mins: '45 */1 * * *',
             every_day_at_midnight: '0 0 * * *',
             every_day_at_one_fifteen: '15 13 * * *'
         }
