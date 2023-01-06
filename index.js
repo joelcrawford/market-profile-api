@@ -18,7 +18,9 @@ server
     })
 
 cron.schedule('20 */1 * * *', () => {
-    console.log('running every hour on the 20th minute')
+    console.log(
+        `Running every hour, at the 20th minute: ${Date.now().toLocaleString()}`
+    )
     tempCronBackfill('binance')
 })
 
