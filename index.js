@@ -20,10 +20,20 @@ server
 
 if (process.env.NODE_ENV === 'production') {
     cron.schedule(options.cron.every_hour_at_30_mins, () => {
-        console.log(
-            `Running every hour, at the 20th minute: ${Date.now().toLocaleString()}`
+        tempCronBackfill('binance').then(
+            console.log(
+                `CRON 30th minute past every hour: ${new Date().toLocaleString(
+                    'en-CA'
+                )}`
+            )
         )
-        tempCronBackfill('binance')
     })
 }
 //tempCronBackfill('binance')
+tempCronBackfill('binance').then(
+    console.log(
+        `CRON 30th minute past every hour: ${new Date().toLocaleString(
+            'en-CA'
+        )}`
+    )
+)

@@ -39,6 +39,7 @@ module.exports = {
         database: 'node_test',
         host: process.env.HHY_HOST,
         port: process.env.POSTGRES_PORT,
+        logging: false,
         dialect: 'postgres',
         dialectModule: pg,
         protocol: 'postgres',
