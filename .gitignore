@@ -1,5 +1,12 @@
-node_modules
-_archive
+/node_modules
+/_archive
+
+# secrets
 .env
-pm2
-dist
+/pm2
+
+# scripts
+/scripts
+
+# build
+/dist
