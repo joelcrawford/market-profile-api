@@ -1,13 +1,14 @@
 const db = require('../db/db')
 
 module.exports = {
-    async selectDupes() {
+    async selectDupes(x) {
         const dupes = await db.sequelize.query(
             `select * from (
                 SELECT id,
                 exchange, symbol, time,
                 ROW_NUMBER() OVER(PARTITION BY exchange, symbol, time ORDER BY exchange, symbol, time asc) AS Row
                 FROM binance_klines
+                WHERE exchange = ${x}
             ) dups
             where dups.Row > 1`
         )

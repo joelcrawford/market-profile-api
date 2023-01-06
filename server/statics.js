@@ -3,10 +3,15 @@ module.exports = {
     tda: {
         baseUrl: 'https://api.tdameritrade.com/v1'
     },
-    functions: {
+    options: {
         backfill: {
             mostDays: 30,
             debug: 1
+        },
+        cron: {
+            every_hour_at_30_mins: '30 */1 * * *',
+            every_day_at_midnight: '0 0 * * *',
+            every_day_at_one_fifteen: '15 13 * * *'
         }
     },
     binance: {

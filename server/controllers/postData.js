@@ -10,9 +10,8 @@
 const express = require('express')
 const moment = require('moment')
 const { selectStats } = require('../queries/selectStats')
-const { backfill } = require('../tools/backfill')
 const { backfillSymbol } = require('../tools/tempCronBackfill')
-const { binance, functions } = require('../statics')
+const { options } = require('../statics')
 
 const router = express.Router()
 
@@ -65,7 +64,7 @@ router.get(['/:x'], async (request, response) => {
                 backfillSymbol(
                     i,
                     moment()
-                        .subtract(functions.backfill.mostDays, 'days')
+                        .subtract(options.backfill.mostDays, 'days')
                         .valueOf()
                 )
             })

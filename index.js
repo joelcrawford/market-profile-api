@@ -3,6 +3,7 @@ const cron = require('node-cron')
 const server = require('./server')
 const port = process.env.PORT || 5000
 const { tempCronBackfill } = require('./server/tools/tempCronBackfill')
+const { options } = require('./server/statics')
 
 server
     .listen(port, () => {
@@ -17,11 +18,12 @@ server
         )
     })
 
-cron.schedule('20 */1 * * *', () => {
-    console.log(
-        `Running every hour, at the 20th minute: ${Date.now().toLocaleString()}`
-    )
-    tempCronBackfill('binance')
-})
-
+if (process.env.NODE_ENV === 'production') {
+    cron.schedule(options.cron.every_hour_at_30_mins, () => {
+        console.log(
+            `Running every hour, at the 20th minute: ${Date.now().toLocaleString()}`
+        )
+        tempCronBackfill('binance')
+    })
+}
 //tempCronBackfill('binance')
