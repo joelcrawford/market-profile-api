@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const { Sequelize } = require('sequelize')
 const BinanceKlines = require('./models/binance_klines')
 //const iqFeedHistorical = require('./iq_feed_historical')
@@ -8,11 +7,10 @@ const currentDatabase = 'node_test'
 
 const { development, production, test } = require('./config/config')
 
+let dbEnv = development
 // using the config file from sequelize
 if (process.env.NODE_ENV === 'production') {
-    pg = production
-} else {
-    pg = development
+    dbEnv = production
 }
 
 // const pgOptions = {
@@ -32,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
 //     }
 // }
 
-const sequelize = new Sequelize(pg)
+const sequelize = new Sequelize(dbEnv)
 
 const models = {
     binance_klines: BinanceKlines.init(sequelize)

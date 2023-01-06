@@ -1,4 +1,5 @@
 require('dotenv').config()
+const pg = require('pg')
 
 // this is used for command line stuff, like npx sequelize (migrations, etc)
 module.exports = {
@@ -39,6 +40,7 @@ module.exports = {
         host: process.env.HHY_HOST,
         port: process.env.POSTGRES_PORT,
         dialect: 'postgres',
+        dialectModule: pg,
         protocol: 'postgres',
         dialectOptions: {
             ssl: {
