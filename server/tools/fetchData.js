@@ -27,7 +27,6 @@ module.exports = {
                     })
 
                     response.on('end', () => {
-                        console.log('the body', body)
                         resolve(
                             JSON.parse(body).map((candle) => {
                                 return new Candlestick(
