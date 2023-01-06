@@ -36,7 +36,7 @@ module.exports = {
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_USER_PASSWORD,
         database: 'node_test',
-        host: process.env.POSTGRES_HOST,
+        host: process.env.HHY_HOST,
         port: process.env.POSTGRES_PORT,
         dialect: 'postgres',
         protocol: 'postgres',
