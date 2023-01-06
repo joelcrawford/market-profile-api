@@ -8,7 +8,9 @@ const { options } = require('./server/statics')
 server
     .listen(port, () => {
         console.log(
-            `Listening with eager anticipation on port ${port} in ${process.env.NODE_ENV} environment...`
+            `Listening with eager anticipation on port ${port} in ${
+                process.env.NODE_ENV
+            } environment...\n ${new Date().toLocaleString('en-CA')}`
         )
     })
     .on('error', (error) => {
@@ -19,21 +21,13 @@ server
     })
 
 if (process.env.NODE_ENV === 'production') {
-    cron.schedule(options.cron.every_hour_at_45_mins, () => {
+    cron.schedule(options.cron.every_hour_at_30_mins, () => {
         tempCronBackfill('binance').then(
             console.log(
-                `CRON 30th minute past every hour: ${new Date().toLocaleString(
+                `CRON: every hour/30th min: ${new Date().toLocaleString(
                     'en-CA'
                 )}`
             )
         )
     })
 }
-//tempCronBackfill('binance')
-tempCronBackfill('binance').then(
-    console.log(
-        `CRON 30th minute past every hour: ${new Date().toLocaleString(
-            'en-CA'
-        )}`
-    )
-)
