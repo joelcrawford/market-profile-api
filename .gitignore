@@ -1,4 +1,5 @@
 node_modules
 _archive
 .env
+pm2
 dist

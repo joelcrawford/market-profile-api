@@ -4,6 +4,7 @@
     "scripts": {
         "server": "NODE_ENV=production nodemon index.js",
         "dev": "NODE_ENV=development nodemon index.js",
+        "pm2": "./scripts/upload_pm2_config.sh",
         "build": "ncc build index.js -o dist",
         "start_dist": "NODE_ENV=development nodemon dist/index.js"
     },
