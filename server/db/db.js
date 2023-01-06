@@ -6,24 +6,33 @@ const BinanceKlines = require('./models/binance_klines')
 
 const currentDatabase = 'node_test'
 
-const pgOptions = {
-    //logging: (...msg) => console.log(msg),
-    port: process.env.POSTGRES_PORT || 5432,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_USER_PASSWORD,
-    host: process.env.POSTGRES_HOST,
-    database: currentDatabase,
-    dialect: 'postgres',
-    protocol: 'postgres',
-    dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
-    }
+const { development, production, test } = require('./config/config')
+
+// using the config file from sequelize
+if (process.env.NODE_ENV === 'production') {
+    pg = production
+} else {
+    pg = development
 }
 
-const sequelize = new Sequelize(pgOptions)
+// const pgOptions = {
+//     //logging: (...msg) => console.log(msg),
+//     port: process.env.POSTGRES_PORT || 5432,
+//     user: process.env.POSTGRES_USER,
+//     password: process.env.POSTGRES_USER_PASSWORD,
+//     host: process.env.POSTGRES_HOST,
+//     database: currentDatabase,
+//     dialect: 'postgres',
+//     protocol: 'postgres',
+//     dialectOptions: {
+//         ssl: {
+//             require: true,
+//             rejectUnauthorized: false
+//         }
+//     }
+// }
+
+const sequelize = new Sequelize(pg)
 
 const models = {
     binance_klines: BinanceKlines.init(sequelize)

@@ -20,7 +20,7 @@ module.exports = {
     test: {
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_USER_PASSWORD,
-        database: 'test_node',
+        database: 'node_test',
         host: process.env.POSTGRES_HOST,
         port: process.env.POSTGRES_PORT,
         dialect: 'postgres',
@@ -35,7 +35,7 @@ module.exports = {
     production: {
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_USER_PASSWORD,
-        database: 'test_node',
+        database: 'node_test',
         host: process.env.POSTGRES_HOST,
         port: process.env.POSTGRES_PORT,
         dialect: 'postgres',
