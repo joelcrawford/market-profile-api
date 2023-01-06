@@ -17,8 +17,8 @@ server
         )
     })
 
-cron.schedule('0 */1 * * *', () => {
-    console.log('running every hour')
+cron.schedule('*/10 * * * *', () => {
+    console.log('running every 10 mins')
     tempCronBackfill('binance')
 })
 

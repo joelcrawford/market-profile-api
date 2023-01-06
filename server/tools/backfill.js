@@ -36,6 +36,8 @@ module.exports = {
                 dataArray.push(k)
             })
 
+            console.log('the dataarray to backfill', dataArray[0])
+
             try {
                 db.binance_klines.bulkCreate(dataArray)
                 dataArray = []
