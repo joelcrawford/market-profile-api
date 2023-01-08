@@ -6,7 +6,8 @@
         "dev": "NODE_ENV=development nodemon index.js",
         "pm2": "./scripts/upload_pm2_config.sh",
         "build": "ncc build index.js -o dist",
-        "start_dist": "NODE_ENV=development nodemon dist/index.js"
+        "start:dist": "NODE_ENV=development nodemon dist/index.js",
+        "start:react": "webpack-dev-server ."
     },
     "dependencies": {
         "axios": "^1.2.1",
