@@ -6,8 +6,10 @@
         "dev": "NODE_ENV=development nodemon index.js",
         "pm2": "./scripts/upload_pm2_config.sh",
         "build": "ncc build index.js -o dist",
+        "deploy:frontend": "rsync -avz public api:/var/www/marketprofile.havehopeyo.com",
         "start:dist": "NODE_ENV=development nodemon dist/index.js",
-        "start:react": "webpack-dev-server ."
+        "build:react": "webpack --mode production",
+        "start:react": "webpack serve --mode development"
     },
     "dependencies": {
         "axios": "^1.2.1",
@@ -30,7 +32,18 @@
         "ws": "^8.11.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.20.12",
+        "@babel/preset-env": "^7.20.2",
+        "@babel/preset-react": "^7.18.6",
         "@vercel/ncc": "^0.36.0",
-        "prettier": "^2.1.2"
+        "babel-loader": "^9.1.2",
+        "filemanager-webpack-plugin": "^8.0.0",
+        "html-webpack-plugin": "^5.5.0",
+        "prettier": "^2.1.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1",
+        "webpack-dev-server": "^4.11.1"
     }
 }
