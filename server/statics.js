@@ -1,4 +1,11 @@
+const path = require('path')
 module.exports = {
+    google: {
+        // If modifying these scopes, delete token.json.
+        SCOPES: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+        CREDENTIALS_PATH: path.join(__dirname, 'google/credentials.json'),
+        TOKEN_PATH: path.join(__dirname, 'google')
+    },
     // TD Ameritrade API endpoints
     tda: {
         baseUrl: 'https://api.tdameritrade.com/v1'

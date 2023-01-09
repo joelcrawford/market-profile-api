@@ -1,9 +1,13 @@
 require('dotenv').config()
+const path = require('path')
 const cron = require('node-cron')
 const server = require('./server')
 const port = process.env.PORT || 5000
 const { tempCronBackfill } = require('./server/tools/tempCronBackfill')
 const { options } = require('./server/statics')
+
+const { authorize } = require('./server/google/authorize')
+const { listMajors } = require('./server/google/test_list_majors')
 
 server
     .listen(port, () => {
@@ -31,3 +35,5 @@ if (process.env.NODE_ENV === 'production') {
         )
     })
 }
+
+authorize().then(listMajors).catch(console.error)
